@@ -57,6 +57,51 @@ Each configuration was saved along with its training metrics and evaluation plot
 
 ---
 
+## 📁 Main Code Files
+
+### A. `generate_configs.py` – 🔧 Configuration Generator
+- Automatically creates JSON configuration files for all combinations of:
+  - Learning rate, dropout rate, dense layer size, optimizer, activation function, and number of epochs.
+- Outputs saved in the `experiment_configs/` directory.
+- **Purpose:** Enables reproducible, modular experimentation.
+
+> 📂 Example output: `experiment_configs/adagrad_lr0.01_drop0.3_units512_relu.json`
+
+---
+
+### B. `generate_experiment_runner.py` – 🧪 Notebook Generator
+- Dynamically generates a full Jupyter notebook (`experiment_runner.ipynb`) that:
+  - Loads all experiment configs
+  - Preprocesses data
+  - Builds and trains models using each configuration
+  - Applies early stopping and checkpoint saving
+  - Saves training plots and validation metrics
+- Avoids re-running experiments if model checkpoint already exists.
+
+> ✅ Supports headless batch-style training in a reproducible notebook format.
+
+---
+
+### C. `experiment_runner.ipynb` – 📓 Auto-Generated Training Notebook
+- Created by `generate_experiment_runner.py`
+- Executes all experiments defined in the `experiment_configs/` folder
+- Saves:
+  - Trained models to `/models`
+  - Training plots to `/plots`
+  - Final metrics (val accuracy, loss, epochs) to `results/experiment_results.csv`
+
+---
+
+### D. `colab_experiment_script.ipynb` – 🧪 Google Colab Notebook
+- Lightweight Colab version for evaluating or rerunning specific experiments
+- Mounts Google Drive and sets working directory
+- Can be used to:
+  - Train a single model using one config
+  - Visualize training curves
+  - Save and sync results to Google Drive
+
+---
+
 ## 📊 Outputs
 
 - Training and validation loss/accuracy plots
